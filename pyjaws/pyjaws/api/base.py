@@ -35,6 +35,18 @@ class Cluster(BaseModel):
     cluster_log_conf: Optional[dict] = None
 
     def __init__(self, **kwargs):
+        """
+        Creates a cluster object.
+        Params:
+            job_cluster_key (str): Job Cluster identifying key.
+            spark_version (pyjaws.api.base.Cluster): Spark Cluster Runtime.
+            num_workers (int): Number of workers in the cluster.
+            node_type_id (int): Type of VM to use for Driver and Workers.
+            autoscale (bool): Enable autoscaling.
+            instance_pool_id (str): Specify an Instance Pool for the job cluster.
+            runtime_engine: (str): STANDARD or PHOTON.
+            cluster_lob_conf (dict): Dict containing configurations for storing cluster logs.
+        """
         super().__init__(**kwargs)
 
     def __str__(self):
@@ -68,14 +80,10 @@ class Task(BaseModel):
     def __str__(self):
         return self.key
 
-    @property
-    def husk_library(self):
-        return {"whl": WHEEL_REMOTE_PATH}
-
 
 class Workflow(BaseModel):
     """
-    Base class for Husk Databricks Workflow.
+    Base class for PyJaws Databricks Workflow.
     Params:
         name: Workflow name.
         tasks: List of Workflow Tasks.
@@ -94,8 +102,7 @@ class Workflow(BaseModel):
 
     def _set_tags(self, tags):
         self.tags = {
-            "project": "husk",
-            "version": __version__,
+            "pyjaws_version": __version__,
             "updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         }
 
@@ -137,7 +144,7 @@ class Workflow(BaseModel):
 
     def json(
         self,
-        search_path=f"{BASE_PATH}/../templates",
+        search_path=f"{BASE_PATH}/templates",
         template_file="workflow.j2",
     ):
         try:

@@ -17,7 +17,6 @@
     "existing_cluster_id": "{{ workflow_task.existing_cluster_id }}",
     {% endif %},
     "libraries": [
-        {"whl": "{{ workflow_task.husk_library['whl'] }}"},
         {% if workflow_task.libraries %}
         {% for library in workflow_task.libraries %}
         {"{{ library.source }}": "{{ library.path }}"},

@@ -43,7 +43,9 @@ def create(input_folder: str, overwrite: bool = False):
         target_path = f"{str(path)}/*.py"
         logging.info(f"Trying to parse all workflows from directory: {target_path}")
         target_scripts = [
-            target for target in glob.glob(target_path) if "_" not in target
+            target for target
+            in glob.glob(target_path)
+            if "__init__.py" not in target
         ]
         logging.info(f"Found: {target_scripts}")
 
