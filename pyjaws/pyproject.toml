@@ -12,11 +12,12 @@ line-length = 88
 [tool.coverage.run]
 branch = true
 source = [
-    "husk"
+    "pyjaws"
 ]
 omit = [
     "tests/*",
-    "setup.py"
+    "setup.py",
+    "__main__.py"
 ]
 
 [tool.coverage.report]
@@ -31,7 +32,8 @@ exclude_lines = [
 ignore_errors = true
 omit = [
     "tests/*",
-    "setup.py"
+    "setup.py",
+    "__main__.py"
 ]
 
 [tool.ruff]
