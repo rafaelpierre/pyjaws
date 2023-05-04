@@ -8,18 +8,19 @@ PACKAGE_REQUIREMENTS = [
     "Jinja2==3.1.2",
     "networkx",
     "GitPython==3.1.31",
-    "databricks-cli"
+    "databricks-cli",
 ]
 
 setup(
-    name = "pyjaws",
-    packages = find_packages(),
+    name="pyjaws",
+    packages=find_packages(),
     include_package_data=True,
-    package_data={'': ['api/templates/*.j2', 'api/templates/macros/*.j2']},
-    setup_requires = ["setuptools", "wheel"],
-    install_requires = PACKAGE_REQUIREMENTS,
-    entry_points = {"console_scripts": ["pyjaws = pyjaws.client.entrypoint:main"]},
-    version = pyjaws.__version__,
-    description = "A Pythoninc Framework for Defining and Deploying Databricks Jobs & Workflows",
-    author = "Rafael Pierre",
+    package_data={"": ["api/templates/*.j2", "api/templates/macros/*.j2"]},
+    setup_requires=["setuptools", "wheel"],
+    install_requires=PACKAGE_REQUIREMENTS,
+    entry_points={"console_scripts": ["pyjaws = pyjaws.client.entrypoint:main"]},
+    version=pyjaws.__version__,
+    description="""A Pythoninc Framework for Defining and Deploying 
+    Databricks Jobs & Workflows""",
+    author="Rafael Pierre",
 )

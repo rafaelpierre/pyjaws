@@ -12,6 +12,7 @@ from pyjaws.api import jobs
 
 logging.basicConfig(level="DEBUG")
 
+
 @click.group()
 def app():
     click.echo("Main")
@@ -43,9 +44,7 @@ def create(input_folder: str, overwrite: bool = False):
         target_path = f"{str(path)}/*.py"
         logging.info(f"Trying to parse all workflows from directory: {target_path}")
         target_scripts = [
-            target for target
-            in glob.glob(target_path)
-            if "__init__.py" not in target
+            target for target in glob.glob(target_path) if "__init__.py" not in target
         ]
         logging.info(f"Found: {target_scripts}")
 
@@ -72,7 +71,9 @@ def create(input_folder: str, overwrite: bool = False):
         logging.error(f"Error deploying jobs: {str(exception)}")
         raise exception
 
-app.add_command(name = "create", cmd = create)
+
+app.add_command(name="create", cmd=create)
+
 
 def main():
     app(standalone_mode=False)
