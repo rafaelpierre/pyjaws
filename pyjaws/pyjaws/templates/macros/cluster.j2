@@ -1,0 +1,30 @@
+{% macro render_clusters(job_clusters) %}
+{% for cluster_key, cluster_specs in job_clusters.items() %}
+{% filter indent(width=8) %}
+{
+    "job_cluster_key": "{{ cluster_key }}",
+    "new_cluster": {
+        "spark_version": "{{ cluster_specs.spark_version.value }}",
+        {% if cluster_specs.node_type_id %}
+        "node_type_id": "{{ cluster_specs.node_type_id }}",
+        {% endif %}
+        "num_workers": {{ cluster_specs.num_workers }},
+        {% if cluster_specs.autoscale %}
+        "autoscale": "{{ cluster_specs.autoscale }}",
+        {% endif %}
+        {% if cluster_specs.instance_pool_id %}
+        "instance_pool_id": "{{ cluster_specs.instance_pool_id }}",
+        {% endif %}
+        {% if cluster_specs.runtime_engine %}
+        "runtime_engine": "{{ cluster_specs.runtime_engine }}",
+        {% else %}
+        "runtime_engine": "STANDARD",
+        {% endif %}
+        {% if cluster_specs.cluster_log_conf %}
+        "cluster_log_conf": {{ cluster_specs.cluster_log_conf_str }},
+        {% endif %}
+    }
+}
+{% endfilter %}
+{% endfor %}
+{% endmacro %}

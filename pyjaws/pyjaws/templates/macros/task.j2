@@ -1,0 +1,41 @@
+{% macro render_task(workflow_task) %}
+{
+    {% if workflow_task.description %}
+        "description": "{{ workflow_task.description }}",
+    {% endif %}
+    
+    "depends_on": [
+        {% if workflow_task.dependencies %}
+        {% for dependency in workflow_task.dependencies %}
+        {"task_key": "{{ dependency.key }}"},
+        {% endfor %}
+        {% endif %}
+    ],
+    {% if workflow_task.cluster %}
+    "job_cluster_key": "{{ workflow_task.cluster.job_cluster_key }}"
+    {% elif workflow_task.existing_cluster_id %}
+    "existing_cluster_id": "{{ workflow_task.existing_cluster_id }}",
+    {% endif %},
+    "libraries": [
+        {"whl": "{{ workflow_task.husk_library['whl'] }}"},
+        {% if workflow_task.libraries %}
+        {% for library in workflow_task.libraries %}
+        {"{{ library.source }}": "{{ library.path }}"},
+        {% endfor %}
+        {% endif %}
+    ],
+    "python_wheel_task": {
+        "package_name": "husk",
+        "entry_point": "husk",
+        "parameters": [
+            "{{ workflow_task.entrypoint }}",
+            "{{ workflow_task.task_name }}",
+            {% for param in workflow_task.parameters %}
+            "{{ param }}",
+            {% endfor %}
+        ]
+    },
+    "email_notifications": {},
+    "task_key": "{{ workflow_task.key }}",
+},
+{% endmacro %}

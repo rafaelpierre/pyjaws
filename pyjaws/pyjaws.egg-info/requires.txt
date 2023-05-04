@@ -1,0 +1,7 @@
+click
+python-rapidjson==1.10
+pydantic==1.10.5
+Jinja2==3.1.2
+networkx
+GitPython==3.1.31
+databricks-cli

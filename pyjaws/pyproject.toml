@@ -1,0 +1,45 @@
+[tool.pytest.ini_options]
+addopts = "-s -p no:warnings"
+log_cli = 1
+log_cli_level = "INFO"
+log_cli_format = "[pytest][%(asctime)s][%(levelname)s][%(module)s][%(funcName)s] %(message)s"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+log_level = "INFO"
+
+[tool.black]
+line-length = 88
+
+[tool.coverage.run]
+branch = true
+source = [
+    "husk"
+]
+omit = [
+    "tests/*",
+    "setup.py"
+]
+
+[tool.coverage.report]
+
+exclude_lines = [
+    "if self.debug:",
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:"
+]
+
+ignore_errors = true
+omit = [
+    "tests/*",
+    "setup.py"
+]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.mccabe]
+max-complexity = 10
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+

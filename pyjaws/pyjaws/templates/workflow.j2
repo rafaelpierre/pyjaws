@@ -1,0 +1,23 @@
+{% from "macros/task.j2" import render_task %}
+{% from "macros/cluster.j2" import render_clusters %}
+{
+    "name": "{{ workflow.name }}",
+    "tasks": [
+        {% for workflow_task in workflow.tasks %}
+            {% filter indent(width=8) %}
+            {{ render_task(workflow_task) }}
+            {% endfilter %}
+        {% endfor %}
+    ],
+    {% if workflow.tags %}
+    "tags": {
+        {% for key, value in workflow.tags.items() %}
+        "{{ key }}": "{{ value }}",
+        {% endfor %}
+    },
+    {% endif %}
+    "job_clusters": [
+        {{ render_clusters(workflow.clusters) }}
+    ],
+    "max_concurrent_runs": 10,
+}
