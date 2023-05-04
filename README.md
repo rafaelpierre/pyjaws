@@ -1,5 +1,7 @@
 # 🦈 pyjaws
 
+![python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=Python&logoColor=white) ![ruff](https://img.shields.io/badge/Ruff-FCC21B.svg?style=for-the-badge&logo=Ruff&logoColor=black) ![databricks](https://img.shields.io/badge/Databricks-FF3621.svg?style=for-the-badge&logo=Databricks&logoColor=white)
+
 * **PyJaws** is a Python Framework which provides a pythonic way to define Databricks Jobs and Workflows.
 * It leverages some existing libraries in order to allow for modularisation, reusability and validation, such as:
     * [Click](https://click.palletsprojects.com/en/8.1.x/) - for providing CLI functionality
