@@ -5,6 +5,7 @@
     * Click - for providing CLI functionality
     * Pydantic - for parameter validation
     * NetworkX - for Graph and Cycle Detection features
+    * Jinja2 - for templating
 
 ## Getting Started
 
