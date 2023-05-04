@@ -91,8 +91,8 @@ workflow = Workflow(
 
 Running `pyjaws create examples/simple_workflow` will result in the following Workflow being deployed to Databricks:
 
-<img src="https://github.com/rafaelpierre/pyjaws/blob/main/img/workflow.png?raw=true />
+![workflow](https://github.com/rafaelpierre/pyjaws/blob/main/img/workflow.png?raw=true "Workflow")
 
 By default, **pyjaws** also includes some useful tags into the workflows indicating which Git Repo hosts the Python definition, commit hash and when the workflow was last updated. For example:
 
-<img src="https://github.com/rafaelpierre/pyjaws/blob/main/img/tags.png?raw=true />
+![workflow](https://github.com/rafaelpierre/pyjaws/blob/main/img/tags.png?raw=true "Workflow")
