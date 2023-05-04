@@ -5,6 +5,11 @@
 .tfstate
 *.lock.hcl
 .terraform
+*.egg-info
+
+.venv
+*/build
+*/dist
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
