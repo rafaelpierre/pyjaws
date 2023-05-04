@@ -2,9 +2,9 @@
 
 * **pyjaws** is a Python Framework which provides a pythonic way to define Databricks Jobs and Workflows.
 * It leverages some existing libraries in order to allow for modularisation, reusability and validation, such as:
-    * Click
-    * Pydantic
-    * NetworkX
+    * Click - for providing CLI functionality
+    * Pydantic - for parameter validation
+    * NetworkX - for Graph and Cycle Detection features
 
 ## Getting Started
 
