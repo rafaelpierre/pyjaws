@@ -1,10 +1,21 @@
-"""This module contains Databricks Jobs Workflows definitions for
-the AI at Scale / IoT part of the PoC.
-"""
+from pyjaws.api.base import (
+    Cluster,
+    Runtime,
+    Task,
+    Workflow
+)
 
-from pyjaws.api.base import Task, Workflow
-from examples.simple_workflow.compute.cluster import cluster
-import os
+cluster = Cluster(
+    job_cluster_key = "ai_cluster",
+    spark_version = Runtime.DBR_13_ML,
+    num_workers = 2,
+    node_type_id = "Standard_DS3_v2",
+    cluster_log_conf = {
+        "dbfs": {
+            "destination": "dbfs:/home/cluster_log"
+        }
+    }
+)
 
 
 # Create a Task object.
@@ -20,11 +31,24 @@ ingest_task = Task(
     ]
 )
 
+transform_task = Task(
+    key = "transform",
+    cluster = cluster,
+    entrypoint = "iot",
+    task_name = "ingest",
+    dependencies = [ingest_task],
+    parameters = [
+        f"my_parameter_value2",
+        "--input-table", "my_table"
+        "--output-table", "output_table"
+    ]
+)
+
 
 # Create a Workflow object to define dependencies
 # between previously defined tasks.
 
 workflow = Workflow(
     name = "my_workflow",
-    tasks = [ingest_task]
+    tasks = [ingest_task, transform_task]
 )
