@@ -6,6 +6,15 @@
     * [Pydantic](https://docs.pydantic.dev/latest/) - for parameter validation
     * [NetworkX](https://networkx.org/) - for Graph and Cycle Detection features
     * [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) - for templating
+ * Folks who have used Python-based orchestration tools such as [Apache Airflow](https://airflow.apache.org/), [Luigi](https://luigi.readthedocs.io/en/stable/) and [Mage](https://pypi.org/project/mage-ai/) will be familiar with the concepts and the API.
+
+## Documentation
+
+* Work in progress. Stay tuned!
+
+## Testing
+
+* **PyJaws** can be tested locally for development purposes. To run unit tests, make sure `tox`, `pytest`, `pytest-cov`, and `coverage` are installed and from a bash terminal, simply run `tox`.
 
 ## Getting Started
 
