@@ -65,7 +65,7 @@ ingest_task = Task(
 )
 
 transform_task = Task(
-    key = "ingest",
+    key = "transform",
     cluster = cluster,
     entrypoint = "iot",
     task_name = "ingest",
