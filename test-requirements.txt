@@ -1,3 +1,5 @@
 black
 ruff
 pytest
+coverage[toml]
+pytest-cov

@@ -1,4 +1,4 @@
-from pyjaws.workflows.api.base import (
+from pyjaws.api.base import (
     Cluster,
     Task,
     Runtime,

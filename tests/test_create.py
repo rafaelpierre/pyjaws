@@ -1,5 +1,5 @@
-from husk.workflows.api import jobs
-from tests.fixtures.workflows.job import (
+from pyjaws.api import jobs
+from tests.fixtures.job import (
     workflow_fixture,
     workflow_fixture_no_tags
 )
