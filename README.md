@@ -64,12 +64,25 @@ ingest_task = Task(
     ]
 )
 
+transform_task = Task(
+    key = "ingest",
+    cluster = cluster,
+    entrypoint = "iot",
+    task_name = "ingest",
+    dependencies = [ingest_task],
+    parameters = [
+        f"my_parameter_value2",
+        "--input-table", "my_table"
+        "--output-table", "output_table"
+    ]
+)
+
 
 # Create a Workflow object to define dependencies
 # between previously defined tasks.
 
 workflow = Workflow(
     name = "my_workflow",
-    tasks = [ingest_task]
+    tasks = [ingest_task, transform_task]
 )
 ```
