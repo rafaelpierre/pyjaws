@@ -17,6 +17,10 @@ jobs:
   test:
     name: 'Continuous Integration'
     runs-on: ubuntu-latest
+    env: 
+      CI_COMMIT_MESSAGE: Update coverage
+      CI_COMMIT_AUTHOR: github-actions[bot]
+      CI_COMMIT_EMAIL: github-actions[bot]@users.noreply.github.com
     permissions:
       contents: read
     steps:
@@ -35,3 +39,13 @@ jobs:
         id: tox
         working-directory: pyjaws
         run: tox
+      - name: Generate Coverage Badge
+        run: python coverage/get_badge.py
+      - name: Commit badge file
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "${{ env.CI_COMMIT_EMAIL }}"
+          git add img/coverage.svg
+          git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git push origin master --force
+      
