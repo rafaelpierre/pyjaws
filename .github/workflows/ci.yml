@@ -45,7 +45,7 @@ jobs:
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
           git config --global user.email "${{ env.CI_COMMIT_EMAIL }}"
-          git add img/coverage.svg
+          git add .
           git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
           git push origin master --force
       
