@@ -1,4 +1,6 @@
-# 🦈 PyJaws
+## PyJaws
+
+<a href="https://www.flaticon.com/free-icons/shark" title="shark icons">Shark icons created by Skyclick - Flaticon</a>
 
  **PyJaws** is a Python Framework which provides a pythonic way to define [Databricks Jobs and Workflows](https://docs.databricks.com/workflows/jobs/jobs.html).
  
