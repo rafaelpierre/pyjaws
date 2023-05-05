@@ -53,5 +53,6 @@ jobs:
           git config --global user.email "${{ env.CI_COMMIT_EMAIL }}"
           git add .
           git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
           git push origin ${{ steps.extract_branch.outputs.branch }} --force
       
