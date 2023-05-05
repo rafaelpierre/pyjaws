@@ -1,4 +1,4 @@
-# 🦈 pyjaws
+# 🦈 PyJaws
 
  **PyJaws** is a Python Framework which provides a pythonic way to define [Databricks Jobs and Workflows](https://docs.databricks.com/workflows/jobs/jobs.html).
  
@@ -15,14 +15,13 @@ Folks who have used Python-based orchestration tools such as [Apache Airflow](ht
     * [Pydantic](https://docs.pydantic.dev/latest/) - for parameter validation
     * [NetworkX](https://networkx.org/) - for Graph and Cycle Detection features
     * [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) - for templating
- * 
 
 ## Main Features
 
 * Enables declaring Databricks Jobs and Workflows as Python code, allowing for:
-   * Code Linting (e.g. with flake8 or ruff)
-   * Formatting (e.g. with black)
-   * Parameter Validation (with Pydantic)
+   * Code Linting
+   * Formatting
+   * Parameter Validation
    * Modularity and reusability
 * In addition to those, **PyJaws** also provides some nice features such as [cycle detection](https://networkx.org/documentation/stable/reference/algorithms/cycles.html) out of the box.
 
