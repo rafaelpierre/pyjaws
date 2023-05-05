@@ -40,7 +40,9 @@ jobs:
         working-directory: pyjaws
         run: tox
       - name: Generate Coverage Badge
-        run: python coverage/get_badge.py
+        run: |
+          pip install requests
+          python coverage/get_badge.py
       - name: Commit badge file
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
