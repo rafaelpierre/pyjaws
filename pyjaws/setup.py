@@ -8,7 +8,7 @@ PACKAGE_REQUIREMENTS = [
     "Jinja2==3.1.2",
     "networkx",
     "GitPython==3.1.31",
-    "databricks-cli==0.17.6",
+    "databricks-cli==0.17.5",
 ]
 
 setup(
