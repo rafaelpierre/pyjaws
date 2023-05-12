@@ -1,14 +1,9 @@
-# PyJaws
+# PyJaws: A Pythonic Way to Define [Databricks Jobs and Workflows]
 
 <p align="center">
-    <a href="https://www.flaticon.com/free-icons/shark">
-        <img src="https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/shark.png" class="align-center" width="200" height="200" alt="Shark icons created by Skyclick - Flaticon" />
+        <img src="https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/shark.png" class="align-center" width="200" height="200"/>
     </a>
 </p>
-
- **PyJaws** is a Python Framework which provides a pythonic way to define [Databricks Jobs and Workflows](https://docs.databricks.com/workflows/jobs/jobs.html).
- 
-Folks who have used Python-based orchestration tools such as [Apache Airflow](https://airflow.apache.org/), [Luigi](https://luigi.readthedocs.io/en/stable/) and [Mage](https://pypi.org/project/mage-ai/) will be familiar with the concepts and the API.
 
 <hr />
 
@@ -16,20 +11,20 @@ Folks who have used Python-based orchestration tools such as [Apache Airflow](ht
 
 <hr />
 
-* **PyJaws** leverages some existing libraries in order to allow for modularisation, reusability and validation, such as:
-    * [Click](https://click.palletsprojects.com/en/8.1.x/) - for providing CLI functionality
-    * [Pydantic](https://docs.pydantic.dev/latest/) - for parameter validation
-    * [NetworkX](https://networkx.org/) - for Graph and Cycle Detection features
-    * [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) - for templating
-
-## Main Features
-
-* Enables declaring Databricks Jobs and Workflows as Python code, allowing for:
+* **PyJaws** enables declaring Databricks Jobs and Workflows as Python code, allowing for:
    * Code Linting
    * Formatting
    * Parameter Validation
    * Modularity and reusability
 * In addition to those, **PyJaws** also provides some nice features such as [cycle detection](https://networkx.org/documentation/stable/reference/algorithms/cycles.html) out of the box.
+
+Folks who have used Python-based orchestration tools such as [Apache Airflow](https://airflow.apache.org/), [Luigi](https://luigi.readthedocs.io/en/stable/) and [Mage](https://pypi.org/project/mage-ai/) will be familiar with the concepts and the API if **PyJaws**.
+
+* **PyJaws** leverages some existing libraries in order to allow for **modularisation**, **reusability** and **validation**, such as:
+    * [Click](https://click.palletsprojects.com/en/8.1.x/) - for providing a rich CLI functionality
+    * [Pydantic](https://docs.pydantic.dev/latest/) - for efficient parameter validation
+    * [NetworkX](https://networkx.org/) - for Graph and Cycle Detection features
+    * [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) - for templating
 
 ## Documentation
 
