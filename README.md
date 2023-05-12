@@ -1,7 +1,7 @@
 # PyJaws: A Pythonic Way to Define [Databricks Jobs and Workflows]
 
 <p align="center">
-        <img src="https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/pyjaws.png" class="align-center" width="200" height="200"/>
+        <img src="https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/pyjaws.png" class="align-center" />
     </a>
 </p>
 
