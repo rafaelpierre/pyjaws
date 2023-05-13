@@ -39,7 +39,7 @@ Folks who have used Python-based orchestration tools such as [Apache Airflow](ht
 * First step is installing `pyjaws`:
 
 ```bash
-pip install https://github.com/rafaelpierre/pyjaws
+pip install pyjaws
 ```
 
 * Once it's installed, define your Databricks Workspace authentication variables:
