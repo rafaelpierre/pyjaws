@@ -11,7 +11,7 @@
 
 <hr />
 
-* **PyJaws** enables declaring Databricks Jobs and Workflows as Python code, allowing for:
+* **PyJaws** enables declaring [Databricks Jobs and Workflows](https://docs.databricks.com/workflows/index.html) as Python code, allowing for:
    * Code Linting
    * Formatting
    * Parameter Validation
