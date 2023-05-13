@@ -36,20 +36,4 @@ jobs:
         id: tox
         working-directory: pyjaws
         run: tox
-      - name: Generate Coverage Badge
-        run: |
-          pip install requests
-          python coverage/get_badge.py
-      - name: Extract branch name
-        shell: bash
-        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
-        id: extract_branch
-      - name: Commit badge file
-        run: |
-          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-          git config --global user.email "${{ env.CI_COMMIT_EMAIL }}"
-          git add .
-          git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
-          git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
-          git push origin ${{ steps.extract_branch.outputs.branch }} --force
       
