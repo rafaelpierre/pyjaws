@@ -2,12 +2,9 @@ name: 'CI'
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'pyjaws/**'
-      - 'tests/**'
-      - '.github/workflows/ci.yml'
   pull_request:
+    branches:
+      - main
     paths:
       - 'husk/**'
       - 'tests/**'
