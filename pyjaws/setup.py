@@ -13,6 +13,9 @@ PACKAGE_REQUIREMENTS = [
     "urllib3<2",
 ]
 
+description = """A Pythoninc Framework for Defining and Deploying 
+    Databricks Jobs & Workflows"""
+
 setup(
     name="pyjaws",
     packages=find_packages(),
@@ -22,7 +25,7 @@ setup(
     install_requires=PACKAGE_REQUIREMENTS,
     entry_points={"console_scripts": ["pyjaws = pyjaws.client.entrypoint:main"]},
     version=pyjaws.__version__,
-    description="""A Pythoninc Framework for Defining and Deploying 
-    Databricks Jobs & Workflows""",
+    description=description,
+    long_description=description,
     author="Rafael Pierre",
 )
