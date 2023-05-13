@@ -1,0 +1,49 @@
+name: my_workflow
+tasks:
+- depends_on: []
+  job_cluster_key: ai_cluster
+  libraries: []
+  python_wheel_task:
+    package_name: husk
+    entry_point: husk
+    parameters:
+    - iot
+    - ingest
+    - my_parameter_value
+    - --output-table
+    - my_table
+  email_notifications: {}
+  task_key: ingest
+- depends_on:
+  - task_key: ingest
+  job_cluster_key: ai_cluster
+  libraries: []
+  python_wheel_task:
+    package_name: husk
+    entry_point: husk
+    parameters:
+    - iot
+    - ingest
+    - my_parameter_value2
+    - --input-table
+    - my_table--output-table
+    - output_table
+  email_notifications: {}
+  task_key: transform
+tags:
+  pyjaws_version: 0.0.3
+  updated: '2023-05-12 17:37:51'
+  commit_hash: 771b59c078922e8bdd3c2d9e76694a7c281780c9
+  branch: main
+  origin: https://github.com/gardnmi/pyjaws_yaml.git
+job_clusters:
+- job_cluster_key: ai_cluster
+  new_cluster:
+    spark_version: 13.0.x-cpu-ml-scala2.12
+    node_type_id: Standard_DS3_v2
+    num_workers: 2
+    runtime_engine: STANDARD
+    cluster_log_conf:
+      dbfs:
+        destination: dbfs:/home/cluster_log
+max_concurrent_runs: 10
