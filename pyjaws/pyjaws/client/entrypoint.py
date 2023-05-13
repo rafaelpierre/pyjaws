@@ -25,7 +25,7 @@ def app():
     "--overwrite",
     is_flag=True,
     show_default=True,
-    default=False,
+    default=True,
     help="Overwrite existing workflow.",
 )
 def create(input_folder: str, overwrite: bool = False):

@@ -22,6 +22,7 @@ def workflow_fixture() -> Workflow:
         key = "ingest",
         cluster = cluster,
         entrypoint = "iot",
+        package_name = "deepspeed",
         task_name = "ingest",
         parameters = [
             f"dummy.parquet",
@@ -36,6 +37,8 @@ def workflow_fixture() -> Workflow:
         key = "aggregate",
         cluster = cluster,
         entrypoint = "iot",
+        libraries = [{"pypi": "deepspeed"}],
+        package_name = "deepspeed",
         task_name = "aggregate",
         dependencies = [ingest_task],
         parameters = [
@@ -72,6 +75,8 @@ def workflow_fixture_no_tags() -> Workflow:
         key = "aggregate",
         cluster = cluster,
         entrypoint = "iot",
+        package_name = "deepspeed",
+        libraries = [{"pypi": "deepspeed"}],
         task_name = "aggregate",
         parameters = [
             "--input-db", "sensors",

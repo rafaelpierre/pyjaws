@@ -68,6 +68,7 @@ class Task(BaseModel):
     """
 
     key: str
+    package_name: str
     entrypoint: str
     task_name: str
     cluster: Cluster

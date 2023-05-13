@@ -41,6 +41,8 @@ def test_overwrite_job(workflow_fixture):
 def test_create_job(workflow_fixture):
     """Test for create_job."""
 
+    logging.info(workflow_fixture.json())
+
     result = jobs.create(
         workflow = workflow_fixture,
         overwrite = True

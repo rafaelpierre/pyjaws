@@ -19,6 +19,7 @@ def create(workflow: Workflow, overwrite: bool = False):
             host=os.environ["DATABRICKS_HOST"],
             token=os.environ["DATABRICKS_TOKEN"],
         )
+        logging.info(f"Deploying jobs to {os.environ['DATABRICKS_HOST']}")
         result = None
         jobs_api = JobsApi(api_client)
         existing_jobs = jobs_api._list_jobs_by_name(name=workflow.name)
