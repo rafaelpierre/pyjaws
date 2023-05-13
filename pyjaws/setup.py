@@ -1,5 +1,6 @@
 from setuptools import find_packages, setup
 import pyjaws
+from pathlib import Path
 
 PACKAGE_REQUIREMENTS = [
     "click",
@@ -13,8 +14,8 @@ PACKAGE_REQUIREMENTS = [
     "urllib3<2",
 ]
 
-description = """A Pythoninc Framework for Defining and Deploying 
-    Databricks Jobs & Workflows"""
+current_dir = Path(__file__).parent
+long_description = (current_dir / "README.md").read_text()
 
 setup(
     name="pyjaws",
@@ -25,7 +26,7 @@ setup(
     install_requires=PACKAGE_REQUIREMENTS,
     entry_points={"console_scripts": ["pyjaws = pyjaws.client.entrypoint:main"]},
     version=pyjaws.__version__,
-    description=description,
-    long_description=description,
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     author="Rafael Pierre",
 )
