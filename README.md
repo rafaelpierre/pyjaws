@@ -55,7 +55,7 @@ export DATABRICKS_TOKEN = ...
 pyjaws create path/to/your/workflow_definitions
 ```
 
-### Example
+### Sample Job Definition
 
 ```python
 from pyjaws.api.base import (
@@ -126,4 +126,8 @@ By default, **pyjaws** also includes some useful tags into the workflows indicat
 
 ## Disclaimer
 
-* **PyJaws** is not developed, endorsed not supported by Databricks. It is provided as-is; no warranty is derived from using this package.
+* **PyJaws** is not developed, endorsed not supported by Databricks. It is provided as-is; no warranty is derived from using this package. For more details, please refer to the [license](https://github.com/rafaelpierre/pyjaws/blob/main/LICENSE.md).
+
+## Reporting Bugs and Contributing
+
+Feel free to create an issue if you feel something is not right. Contribution guidelines can be found [here](https://githubcom/rafaelpierre/pyjaws/blob/main/CONTRIBUTING.md).
