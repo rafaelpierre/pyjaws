@@ -10,7 +10,7 @@ def get_badge():
     response = requests.get(badge_url, stream=True)
 
     if response.status_code == 200:
-        with open("img/coverage.png", "wb") as file:
+        with open("img/coverage.svg", "wb") as file:
             response.raw.decode_content = True
             shutil.copyfileobj(response.raw, file)
 
