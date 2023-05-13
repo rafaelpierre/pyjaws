@@ -14,7 +14,7 @@ PACKAGE_REQUIREMENTS = [
     "urllib3<2",
 ]
 
-current_dir = Path(__file__).parent.parent.parent
+current_dir = Path(__file__).parent.parent
 long_description = (current_dir / "README.md").read_text()
 
 setup(
