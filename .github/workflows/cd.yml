@@ -1,4 +1,4 @@
-name: Publish Package to PyPI and TestPyPI
+name: CD
 
 on: workflow_dispatch
 
