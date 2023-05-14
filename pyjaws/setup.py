@@ -12,6 +12,7 @@ PACKAGE_REQUIREMENTS = [
     "databricks-cli==0.17.5",
     "requests<2.30.0",
     "urllib3<2",
+    "matplotlib",
 ]
 
 current_dir = Path(__file__).parent.parent
@@ -21,16 +22,12 @@ setup(
     name="pyjaws",
     packages=find_packages(),
     include_package_data=True,
-    package_data={"": [
-        "README.md",
-        "api/templates/*.j2",
-        "api/templates/macros/*.j2"
-    ]},
+    package_data={"": ["README.md", "api/templates/*.j2", "api/templates/macros/*.j2"]},
     setup_requires=["setuptools", "wheel"],
     install_requires=PACKAGE_REQUIREMENTS,
     entry_points={"console_scripts": ["pyjaws = pyjaws.client.entrypoint:main"]},
     version=pyjaws.__version__,
     long_description=long_description,
-    long_description_content_type='text/markdown',
+    long_description_content_type="text/markdown",
     author="Rafael Pierre",
 )
