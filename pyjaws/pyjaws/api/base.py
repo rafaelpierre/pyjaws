@@ -7,6 +7,7 @@ import json
 from json.decoder import JSONDecodeError
 import rapidjson
 from datetime import datetime
+from matplotlib import pyplot as plt
 
 from typing import List, Optional
 from pydantic import BaseModel
@@ -91,14 +92,19 @@ class Workflow(BaseModel):
         tasks: List of Workflow Tasks.
     """
 
+    class Config:
+        arbitrary_types_allowed = True
+
     name: str
     tasks: List[Task]
     tags: Optional[dict] = {}
+    graph: nx.Graph = None
     schedule: Optional[str]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        self._create_graph()
         self.validate()
         self._set_tags(kwargs.get("tags", {}))
 
@@ -178,14 +184,23 @@ class Workflow(BaseModel):
             ]:
                 raise ValueError(f"Invalid Cluster ID: {task.cluster.job_cluster_key}")
 
-    def _validate_cycles(self):
-        node_list = []
-        for task in self.tasks:
-            for dependency in task.dependencies or []:
-                node_list.append((str(task), str(dependency)))
+    def _create_graph(self):
 
-        graph = nx.DiGraph(node_list)
-        cycles = list(nx.simple_cycles(graph))
+        edge_list = []
+
+        if len(self.tasks) == 1:
+            self.graph = nx.Graph()
+            self.graph.add_node(self.tasks[0].task_name)
+        else:
+            for task in self.tasks:
+                for dependency in task.dependencies or []:
+                    edge_list.append((str(dependency), str(task)))
+
+            self.graph = nx.DiGraph(edge_list)
+
+    def _validate_cycles(self):
+        
+        cycles = list(nx.simple_cycles(self.graph))
         if len(cycles) > 0:
             raise ValueError("Cycle(s) detected in the workflow")
 
@@ -193,3 +208,8 @@ class Workflow(BaseModel):
         super().validate(self)
         self._validate_tasks()
         self._validate_cycles()
+
+    def _ipython_display_(self):
+        
+        nx.draw(self.graph, with_labels = True)
+        plt.show()

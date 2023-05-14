@@ -37,7 +37,7 @@ ingest_task = Task(
         "--output-table", "my_table"
     ]
 )
-"""
+
 transform_task = Task(
     key = "transform",
     cluster = cluster,
@@ -51,7 +51,7 @@ transform_task = Task(
        "--num_gpus", "2",
        "run_glue_classifier_bert_base.py"
     ]
-)"""
+)
 
 
 # Create a Workflow object to define dependencies
@@ -59,5 +59,5 @@ transform_task = Task(
 
 workflow = Workflow(
     name = "my_workflow",
-    tasks = [ingest_task]#, transform_task]
+    tasks = [ingest_task, transform_task]
 )
