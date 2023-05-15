@@ -30,9 +30,10 @@
         {% endfor %}
     ],
     {% endif %}
+    {% if workflow_task._task_type == "python_wheel_task" %}
     "python_wheel_task": {
-        "package_name": "workflow_task.package_name",
-        "entry_point": "workflow_task.entrypoint",
+        "package_name": "{{ workflow_task.package_name }}",
+        "entry_point": "{{ workflow_task.entrypoint }}",
         "parameters": [
             "{{ workflow_task.entrypoint }}",
             "{{ workflow_task.task_name }}",
@@ -41,6 +42,27 @@
             {% endfor %}
         ]
     },
+    {% elif workflow_task._task_type == "notebook_task" %}
+    "notebook_task": {
+        "notebook_path": "{{ workflow_task.notebook_path }}",
+        "source": "{{ workflow_task.source.value }}",
+        "base_parameters": {
+            {% for key, value in workflow_task.base_parameters %}
+                "{{ key }}" :"{{ value }}",
+            {% endfor %}
+        }
+    },
+    {% elif workflow_task._task_type == "spark_python_task" %}
+    "spark_python_task": {
+        "python_file": "{{ workflow_task.python_file }}",
+        "source": "{{ workflow_task.source.value }}",
+        "parameters": [
+            {% for param in workflow_task.parameters %}
+            "{{ param }}",
+            {% endfor %}
+        ]
+    },
+    {% endif %}
     "email_notifications": {},
     "task_key": "{{ workflow_task.key }}",
 },

@@ -59,7 +59,7 @@ class Cluster(BaseModel):
         return json.dumps(self.cluster_log_conf)
 
 
-class Task(BaseModel):
+class BaseTask(BaseModel):
     """
     Base class for Husk Databricks Workflow Task.
     Params:
@@ -69,12 +69,8 @@ class Task(BaseModel):
     """
 
     key: str
-    package_name: str
-    entrypoint: str
-    task_name: str
     cluster: Cluster
-    parameters: List[str] = []
-    dependencies: Optional[List[Task]] = None
+    dependencies: Optional[List[BaseTask]] = None
     libraries: Optional[List[dict]] = None
 
     def __init__(self, **kwargs):
@@ -96,7 +92,7 @@ class Workflow(BaseModel):
         arbitrary_types_allowed = True
 
     name: str
-    tasks: List[Task]
+    tasks: List[BaseTask]
     tags: Optional[dict] = {}
     graph: nx.Graph = None
     schedule: Optional[str]
