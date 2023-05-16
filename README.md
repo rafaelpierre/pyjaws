@@ -12,19 +12,19 @@
 <hr />
 
 * **PyJaws** enables declaring [Databricks Jobs and Workflows](https://docs.databricks.com/workflows/index.html) as Python code, allowing for:
-   * Code Linting
-   * Formatting
-   * Parameter Validation
-   * Modularity and reusability
+  * Code Linting
+  * Formatting
+  * Parameter Validation
+  * Modularity and reusability
 * In addition to those, **PyJaws** also provides some nice features such as [cycle detection](https://networkx.org/documentation/stable/reference/algorithms/cycles.html) out of the box.
 
 Folks who have used Python-based orchestration tools such as [Apache Airflow](https://airflow.apache.org/), [Luigi](https://luigi.readthedocs.io/en/stable/) and [Mage](https://pypi.org/project/mage-ai/) will be familiar with the concepts and the API if **PyJaws**.
 
 * **PyJaws** leverages some existing libraries in order to allow for **modularisation**, **reusability** and **validation**, such as:
-    * [Click](https://click.palletsprojects.com/en/8.1.x/) - for providing a rich CLI functionality
-    * [Pydantic](https://docs.pydantic.dev/latest/) - for efficient parameter validation
-    * [NetworkX](https://networkx.org/) - for Graph and Cycle Detection features
-    * [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) - for templating
+  * [Click](https://click.palletsprojects.com/en/8.1.x/) - for providing a rich CLI functionality
+  * [Pydantic](https://docs.pydantic.dev/latest/) - for efficient parameter validation
+  * [NetworkX](https://networkx.org/) - for Graph and Cycle Detection features
+  * [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) - for templating
 
 ## Documentation
 
@@ -61,9 +61,9 @@ pyjaws create path/to/your/workflow_definitions
 from pyjaws.api.base import (
     Cluster,
     Runtime,
-    Task,
     Workflow
 )
+from pyjaws.api.tasks import PythonWheelTask
 
 cluster = Cluster(
     job_cluster_key = "ai_cluster",
@@ -80,7 +80,7 @@ cluster = Cluster(
 
 # Create a Task object.
 
-ingest_task = Task(
+ingest_task = PythonWheelTask(
     key = "ingest",
     cluster = cluster,
     entrypoint = "iot",
@@ -91,7 +91,7 @@ ingest_task = Task(
     ]
 )
 
-transform_task = Task(
+transform_task = PythonWheelTask(
     key = "transform",
     cluster = cluster,
     entrypoint = "iot",
