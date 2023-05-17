@@ -54,6 +54,12 @@ class Cluster(BaseModel):
     def __str__(self):
         return self.job_cluster_key
 
+    def __enter__(self) -> Cluster:
+        return self
+
+    def __exit__(self, *args):
+        pass
+
     @property
     def cluster_log_conf_str(self) -> str:
         return json.dumps(self.cluster_log_conf)
