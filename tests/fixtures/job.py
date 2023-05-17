@@ -118,3 +118,37 @@ def workflow_fixture_no_tags() -> Workflow:
     workflow = Workflow(name="test_workflow_iot", tasks=[aggregate_task])
 
     return workflow
+
+
+@pytest.fixture
+def workflow_multiple_cluster() -> Workflow:
+    cluster_1 = Cluster(
+        job_cluster_key="mycluster_1",
+        spark_version=Runtime.DBR_13_ML,
+        node_type_id="Standard_E4ds_v4",
+        num_workers=3,
+    )
+
+    task_1 = SparkPythonTask(
+        key="task_1",
+        cluster=cluster_1,
+        python_file="/Workspace/Repos/bob@mail.com/utils/task_1.py",
+        source=Source.WORKSPACE,
+    )
+
+    # cluster created with context manager
+    with Cluster(
+        job_cluster_key="mycluster_2",
+        spark_version=Runtime.DBR_13_ML,
+        node_type_id="Standard_E4ds_v4",
+        num_workers=3,
+    ) as cluster_2:
+        task_2 = SparkPythonTask(
+            key="task_2",
+            cluster=cluster_2,
+            python_file="/Workspace/Repos/bob@mail.com/utils/task_2.py",
+            source=Source.WORKSPACE,
+        )
+    workflow = Workflow(name="test_workflow_iot", tasks=[task_1, task_2])
+
+    return workflow
