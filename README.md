@@ -114,6 +114,35 @@ workflow = Workflow(
 )
 ```
 
+### Extra Features
+
+* **Context Manager** for **Cluster** declarations:
+
+```python
+# cluster created with context manager
+with Cluster(
+    job_cluster_key="mycluster_2",
+    spark_version=Runtime.DBR_13_ML,
+    node_type_id="Standard_E4ds_v4",
+    num_workers=3,
+) as cluster_2:
+    task_2 = SparkPythonTask(
+        key="task_2",
+        cluster=cluster_2,
+        python_file="/Workspace/Repos/bob@mail.com/utils/task_2.py",
+        source=Source.WORKSPACE,
+    )
+```
+
+* **Workflow preview/visualization** on notebooks:
+
+```python
+display(workflow)
+```
+Result:
+
+
+
 ### Sample Results
 
 Running `pyjaws create examples/simple_workflow` will result in the following Workflow being deployed to Databricks:
