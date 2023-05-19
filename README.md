@@ -143,9 +143,13 @@ Result:
 
 ![preview](https://github.com/rafaelpierre/pyjaws/blob/main/img/preview.png?raw=true "Preview")
 
-### Sample Results
+## Deploying Jobs
 
-Running `pyjaws create examples/simple_workflow` will result in the following Workflow being deployed to Databricks:
+If you have a folder containing multiple workflow definition files written in Python with **PyJaws**, it is quite simple to deploy all of them to your Databricks Workspace with a one liner:
+
+`pyjaws create examples/simple_workflow`
+
+This would result in the following Workflow being deployed to your workspace:
 
 ![workflow](https://github.com/rafaelpierre/pyjaws/blob/main/img/workflow.png?raw=true "Workflow")
 
