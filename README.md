@@ -141,7 +141,7 @@ display(workflow)
 ```
 Result:
 
-
+![preview](https://github.com/rafaelpierre/pyjaws/blob/main/img/preview.png?raw=true "Preview")
 
 ### Sample Results
 
