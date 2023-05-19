@@ -20,13 +20,10 @@ from pyjaws.api.runtime import Runtime
 
 
 BASE_PATH = os.path.dirname(__file__)
-WHEEL_NAME = f"husk-{__version__}-py3-none-any.whl"
-WHEEL_REMOTE_PATH = f"dbfs:/FileStore/husk/{WHEEL_NAME}/{WHEEL_NAME}"
-
 
 class Cluster(BaseModel):
     job_cluster_key: str
-    spark_version: Runtime
+    spark_version: str
     num_workers: int
     node_type_id: Optional[str] = None
     autoscale: Optional[bool] = None

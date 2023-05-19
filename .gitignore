@@ -194,3 +194,6 @@ apps.*
 
 # Ignore macOS files
 .DS_Store
+
+#venev
+myenv
