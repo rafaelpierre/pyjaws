@@ -3,3 +3,5 @@ ruff
 pytest
 coverage[toml]
 pytest-cov
+python-dotenv
+databricks-sdk
