@@ -67,16 +67,16 @@ class Cluster(BaseModel):
 
 class BaseTask(BaseModel):
     """
-    Base class for Husk Databricks Workflow Task.
+    Base class for Databricks Workflow Task.
     Params:
         key: Task key.
-        existing_cluster_id: Cluster ID for running the task.
+        cluster: Cluster object for running the task.
         libraries: List of Python libraries to be installed.
     """
 
     key: str
     cluster: Cluster
-    dependencies: Optional[List[BaseTask]] = None
+    dependencies: Optional[List[BaseTask]] = []
     libraries: Optional[List[dict]] = None
 
     def __init__(self, **kwargs):
@@ -84,6 +84,22 @@ class BaseTask(BaseModel):
 
     def __str__(self):
         return self.key
+
+    def set_relatives(self, downstream, task_or_task_list):
+        if isinstance(task_or_task_list, list):
+            for task in task_or_task_list:
+                self.set_relatives(downstream=downstream, task_or_task_list=task)
+        elif downstream:
+            self.dependencies.append(task_or_task_list)
+        else:
+            # Upstream
+            task_or_task_list.dependencies.append(self)
+
+    def __lshift__(self, task_or_task_list):
+        self.set_relatives(downstream=True, task_or_task_list=task_or_task_list)
+
+    def __rshift__(self, task_or_task_list):
+        self.set_relatives(downstream=False, task_or_task_list=task_or_task_list)
 
 
 class Workflow(BaseModel):

@@ -152,3 +152,15 @@ def workflow_multiple_cluster() -> Workflow:
     workflow = Workflow(name="test_workflow_iot", tasks=[task_1, task_2])
 
     return workflow
+
+@pytest.fixture
+def cluster() -> Cluster:
+
+    cluster = Cluster(
+        job_cluster_key="mycluster_1",
+        spark_version=Runtime.DBR_13_ML,
+        node_type_id="Standard_E4ds_v4",
+        num_workers=3,
+    )
+
+    return cluster
