@@ -1,4 +1,4 @@
-"""Base class for Husk Databricks Jobs & Workflows."""
+"""Base class for PyJaws Databricks Jobs & Workflows."""
 
 from __future__ import annotations
 import jinja2
@@ -21,9 +21,6 @@ from pyjaws.api.runtime import Runtime
 
 
 BASE_PATH = os.path.dirname(__file__)
-WHEEL_NAME = f"husk-{__version__}-py3-none-any.whl"
-WHEEL_REMOTE_PATH = f"dbfs:/FileStore/husk/{WHEEL_NAME}/{WHEEL_NAME}"
-
 
 class Cluster(BaseModel):
     job_cluster_key: str
