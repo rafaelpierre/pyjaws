@@ -1,26 +1,27 @@
 """Base class for PyJaws Databricks Jobs & Workflows."""
 
 from __future__ import annotations
-import jinja2
-import logging
-import json
-from json.decoder import JSONDecodeError
-import rapidjson
-from datetime import datetime
-from matplotlib import pyplot as plt
 
-from typing import List, Optional
-from pydantic import BaseModel
+import json
+import logging
 import os
-import networkx as nx
+from datetime import datetime
+from json.decoder import JSONDecodeError
+from threading import Lock
+from typing import List, Optional
 
 import git
+import jinja2
+import networkx as nx
+import rapidjson
+from matplotlib import pyplot as plt
+from pydantic import BaseModel
 
 from pyjaws import __version__
 from pyjaws.api.runtime import Runtime
 
-
 BASE_PATH = os.path.dirname(__file__)
+
 
 class Cluster(BaseModel):
     job_cluster_key: str
@@ -31,6 +32,8 @@ class Cluster(BaseModel):
     instance_pool_id: Optional[str] = None
     runtime_engine: Optional[str] = None
     cluster_log_conf: Optional[dict] = None
+    __cluster: List[Cluster] = []
+    __lock: Lock = Lock()
 
     def __init__(self, **kwargs):
         """
@@ -52,10 +55,22 @@ class Cluster(BaseModel):
         return self.job_cluster_key
 
     def __enter__(self) -> Cluster:
+        if self.__cluster:
+            raise Exception("Nested clusters are not supported!!")
+        self.__lock.acquire()
+        self.__cluster.append(self)
         return self
 
     def __exit__(self, *args):
-        pass
+        self.__cluster.pop()
+        self.__lock.release()
+
+    @classmethod
+    def _get_cluster(cls) -> Cluster:
+        if cls.__cluster:
+            return cls.__cluster[-1]
+        else:
+            raise Exception("_get_cluster cannot be called outside of with clause!!")
 
     @property
     def cluster_log_conf_str(self) -> str:
@@ -72,12 +87,14 @@ class BaseTask(BaseModel):
     """
 
     key: str
-    cluster: Cluster
+    cluster: Optional[Cluster] = None
     dependencies: Optional[List[BaseTask]] = []
     libraries: Optional[List[dict]] = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        if not self.cluster and Cluster._get_cluster():
+            self.cluster = Cluster._get_cluster()
 
     def __str__(self):
         return self.key
