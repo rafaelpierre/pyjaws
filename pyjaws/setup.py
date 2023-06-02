@@ -13,6 +13,7 @@ PACKAGE_REQUIREMENTS = [
     "requests<2.30.0",
     "urllib3<2",
     "matplotlib",
+    "apache-airflow"
 ]
 
 current_dir = Path(__file__).parent.parent
