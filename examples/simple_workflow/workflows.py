@@ -12,7 +12,7 @@ cluster = Cluster(
 # Create a Task object.
 
 ingest_task = PythonWheelTask(
-    key="ingest",
+    key="test1",
     cluster=cluster,
     package_name="my_package",
     entrypoint="ingest",
@@ -27,7 +27,6 @@ transform_task = PythonWheelTask(
     package_name="deepspeed",
     entrypoint="deepspeed",
     task_name="ingest",
-    dependencies=[ingest_task],
     libraries=[{"pypi": "deepspeed"}],
     parameters=[
         "--num_nodes",
@@ -38,6 +37,9 @@ transform_task = PythonWheelTask(
     ],
 )
 
+# Task dependencies
+
+ingest_task >> transform_task
 
 # Create a Workflow object to define dependencies
 # between previously defined tasks.
