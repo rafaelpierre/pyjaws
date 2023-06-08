@@ -32,8 +32,8 @@ class Cluster(BaseModel):
     instance_pool_id: Optional[str] = None
     runtime_engine: Optional[str] = None
     cluster_log_conf: Optional[dict] = None
-    __cluster: List[Cluster] = []
-    __lock: Lock = Lock()
+    __cluster: List[Cluster] = []  # mutable list to store current instance
+    __lock: Lock = Lock()  # to prevent race conditions
 
     def __init__(self, **kwargs):
         """
@@ -55,6 +55,7 @@ class Cluster(BaseModel):
         return self.job_cluster_key
 
     def __enter__(self) -> Cluster:
+        """Injects cluster instance into tasks created within context manger syntax."""
         if self.__cluster:
             raise Exception("Nested clusters are not supported!!")
         self.__lock.acquire()
@@ -67,6 +68,7 @@ class Cluster(BaseModel):
 
     @classmethod
     def _get_cluster(cls) -> Cluster:
+        """A helper method to return the cluster instance."""
         if cls.__cluster:
             return cls.__cluster[-1]
         else:
