@@ -1,4 +1,4 @@
-# PyJaws: A Pythonic Way to Define Databricks Jobs and Workflows
+# PyJaws: A Pythonic Way to Define Databricks JaWs (Jobs and Workflows)
 
 <p align="center">
         <img src="https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/pyjaws.png" class="align-center" />
