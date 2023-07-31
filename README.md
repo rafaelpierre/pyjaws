@@ -1,6 +1,7 @@
 # PyJaws: A Pythonic Way to Define Databricks JaWs (Jobs and Workflows)
 
 <hr />
+
 ![Downloads](https://static.pepy.tech/personalized-badge/pyjaws?period=total&units=international_system&left_color=black&right_color=brightgreen&left_text=Downloads) (https://pepy.tech/project/pyjaws) (https://pypi.org/project/pyjaws/) ![black](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge) ![ruff](https://img.shields.io/badge/lint-ruff-gold?style=for-the-badge) ![cov](https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/coverage.svg) ![databricks](https://img.shields.io/badge/Databricks-FF3621.svg?style=for-the-badge&logo=Databricks&logoColor=white) ![Jinja](https://img.shields.io/badge/jinja-white.svg?style=for-the-badge&logo=jinja&logoColor=black) ![downloads](https://img.shields.io/pypi/dm/pyjaws?style=for-the-badge)
 
 <p align="center">
