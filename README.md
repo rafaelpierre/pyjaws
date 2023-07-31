@@ -2,16 +2,12 @@
 
 <hr />
 
-![Downloads](https://static.pepy.tech/personalized-badge/pyjaws?period=total&units=international_system&left_color=black&right_color=brightgreen&left_text=Downloads) (https://pepy.tech/project/pyjaws) (https://pypi.org/project/pyjaws/) ![black](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge) ![ruff](https://img.shields.io/badge/lint-ruff-gold?style=for-the-badge) ![cov](https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/coverage.svg) ![databricks](https://img.shields.io/badge/Databricks-FF3621.svg?style=for-the-badge&logo=Databricks&logoColor=white) ![Jinja](https://img.shields.io/badge/jinja-white.svg?style=for-the-badge&logo=jinja&logoColor=black) ![downloads](https://img.shields.io/pypi/dm/pyjaws?style=for-the-badge)
+![downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fanalytics.pepy.tech%2Fapi%2Fv2%2Fprojects%2Fpyjaws&query=%24%5B%22total_downloads%22%5D&style=for-the-badge&label=downloads&color=brightgreen) ![black](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge) ![ruff](https://img.shields.io/badge/lint-ruff-gold?style=for-the-badge) ![cov](https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/coverage.svg) ![databricks](https://img.shields.io/badge/Databricks-FF3621.svg?style=for-the-badge&logo=Databricks&logoColor=white) ![Jinja](https://img.shields.io/badge/jinja-white.svg?style=for-the-badge&logo=jinja&logoColor=black) ![downloads](https://img.shields.io/pypi/dm/pyjaws?style=for-the-badge)
 
 <p align="center">
         <img src="https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/pyjaws.png" class="align-center" />
     </a>
 </p>
-
-<hr />
-
-[![pypi](https://img.shields.io/badge/pypi-0.1.5-brightgreen?style=for-the-badge)](https://pypi.org/project/pyjaws/) ![black](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge) ![ruff](https://img.shields.io/badge/lint-ruff-gold?style=for-the-badge) ![cov](https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/coverage.svg) ![databricks](https://img.shields.io/badge/Databricks-FF3621.svg?style=for-the-badge&logo=Databricks&logoColor=white) ![Jinja](https://img.shields.io/badge/jinja-white.svg?style=for-the-badge&logo=jinja&logoColor=black) ![downloads](https://img.shields.io/pypi/dm/pyjaws?style=for-the-badge)
 
 <hr />
 
