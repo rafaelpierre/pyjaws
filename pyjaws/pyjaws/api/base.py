@@ -83,21 +83,15 @@ class BaseTask(BaseModel):
     """
     Base class for PyJaws Databricks Workflow Task.
     Params:
-        key: Task key.
-        cluster: Cluster object for running the task.
-        libraries: List of Python libraries to be installed.
+    key: Task key.
+    cluster: Cluster object for running the task.
+    libraries: List of Python libraries to be installed.
     """
 
     key: str
     cluster: Optional[Cluster] = None
     dependencies: Optional[List[BaseTask]] = []
-    libraries: Optional[List[dict]] = [
-        {"egg": ""},
-        {"pypi": {}},
-        {"whl": ""},
-        {"jar": ""},
-        {"maven": {}},
-    ]
+    libraries: Optional[List[dict]] = []
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -128,8 +122,8 @@ class Workflow(BaseModel):
     """
     Base class for PyJaws Databricks Workflow.
     Params:
-        name: Workflow name.
-        tasks: List of Workflow Tasks.
+    name: Workflow name.
+    tasks: List of Workflow Tasks.
     """
 
     class Config:
@@ -230,7 +224,7 @@ class Workflow(BaseModel):
 
         if len(self.tasks) == 1:
             self.graph = nx.Graph()
-            self.graph.add_node(self.tasks[0].task_name)
+            self.graph.add_node(self.tasks[0].key)
         else:
             for task in self.tasks:
                 for dependency in task.dependencies or []:
