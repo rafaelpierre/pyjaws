@@ -145,7 +145,7 @@ By default, **pyjaws** also includes some useful tags into the workflows indicat
 
 ## Documentation
 
-* Work in progress. Stay tuned!
+* [PyJaws Documentation (Read the Docs)](https://pyjaws.readthedocs.io)
 
 ## Development & Testing
 
