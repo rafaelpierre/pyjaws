@@ -3,3 +3,4 @@ ruff
 pytest
 coverage[toml]
 pytest-cov
+defusedxml

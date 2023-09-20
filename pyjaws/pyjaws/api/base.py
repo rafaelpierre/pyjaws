@@ -192,7 +192,7 @@ class Workflow(BaseModel):
         try:
             with open(f"{search_path}/{template_file}", "r"):
                 loader = jinja2.FileSystemLoader(searchpath=search_path)
-                env = jinja2.Environment(loader=loader)
+                env = jinja2.Environment(loader=loader, autoescape=True)
                 workflow_template = template_file
                 template = env.get_template(workflow_template)
                 result = template.render(workflow=self)
