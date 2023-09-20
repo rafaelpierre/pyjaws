@@ -8,7 +8,7 @@ PACKAGE_REQUIREMENTS = [
     "pydantic==1.10.5",
     "Jinja2==3.1.2",
     "networkx",
-    "GitPython==3.1.31",
+    "GitPython==3.1.33",
     "databricks-cli==0.17.5",
     "requests<2.30.0",
     "urllib3<2",
