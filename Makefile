@@ -1,3 +1,3 @@
 build:
 	rm -rf pyjaws/dist
-	python -m build --wheel pyjaws
+	python3 -m build --wheel pyjaws

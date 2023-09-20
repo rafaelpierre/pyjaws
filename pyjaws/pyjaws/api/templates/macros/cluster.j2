@@ -21,7 +21,13 @@
         "runtime_engine": "STANDARD",
         {% endif %}
         {% if cluster_specs.cluster_log_conf %}
-        "cluster_log_conf": {{ cluster_specs.cluster_log_conf_str }},
+        "cluster_log_conf": {
+        {% for conf in cluster_specs.cluster_log_conf.keys() %}
+            "{{ conf }}": {
+                "destination": "{{ cluster_specs.cluster_log_conf[conf]['destination'] }}",
+            }
+        },
+        {% endfor %}
         {% endif %}
     }
 },

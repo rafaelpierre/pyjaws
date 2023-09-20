@@ -91,7 +91,13 @@ class BaseTask(BaseModel):
     key: str
     cluster: Optional[Cluster] = None
     dependencies: Optional[List[BaseTask]] = []
-    libraries: Optional[List[dict]] = None
+    libraries: Optional[List[dict]] = [
+        {"egg": ""},
+        {"pypi": {}},
+        {"whl": ""},
+        {"jar": ""},
+        {"maven": {}}
+    ]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -196,6 +202,7 @@ class Workflow(BaseModel):
                 workflow_template = template_file
                 template = env.get_template(workflow_template)
                 result = template.render(workflow=self)
+                logging.info(f"rendered template: {result}")
                 result_json = rapidjson.loads(
                     result, parse_mode=rapidjson.PM_TRAILING_COMMAS
                 )

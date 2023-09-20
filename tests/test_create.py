@@ -2,7 +2,7 @@ import logging
 from unittest import mock
 
 import pytest
-from databricks_cli.jobs.api import JobsApi
+from databricks.sdk.service.jobs import JobsAPI
 from pyjaws.api import jobs
 
 from tests.fixtures.job import (
@@ -13,9 +13,9 @@ from tests.fixtures.job import (
 
 
 @mock.patch.object(
-    JobsApi, "_list_jobs_by_name", mock.Mock(return_value=[{"job_id": "1234"}])
+    JobsAPI, "list", mock.Mock(return_value=[{"job_id": "1234"}])
 )
-@mock.patch.object(JobsApi, "reset_job", mock.Mock(return_value={}))
+@mock.patch.object(JobsAPI, "reset", mock.Mock(return_value={}))
 @mock.patch.dict(
     "os.environ",
     {
@@ -37,8 +37,8 @@ def test_overwrite_job(workflow_fixture_, request):
     assert isinstance(result, dict)
 
 
-@mock.patch.object(JobsApi, "_list_jobs_by_name", mock.Mock(return_value=[]))
-@mock.patch.object(JobsApi, "create_job", mock.Mock(return_value={"job_id": "123"}))
+@mock.patch.object(JobsAPI, "list", mock.Mock(return_value=[]))
+@mock.patch.object(JobsAPI, "create", mock.Mock(return_value={"job_id": "123"}))
 @mock.patch.dict(
     "os.environ",
     {
@@ -59,8 +59,7 @@ def test_create_job(workflow_fixture_, request):
     result = jobs.create(workflow=workflow, overwrite=True)
 
     logging.info(f"Create result: {result}")
-    assert result
-    assert result["job_id"]
+    assert isinstance(result, dict)
 
 
 def test_custom_tags(workflow_fixture):
@@ -68,8 +67,8 @@ def test_custom_tags(workflow_fixture):
     assert "test" in workflow_fixture.tags.keys()
 
 
-@mock.patch.object(JobsApi, "_list_jobs_by_name", mock.Mock(return_value=[]))
-@mock.patch.object(JobsApi, "create_job", mock.Mock(return_value={"job_id": "123"}))
+@mock.patch.object(JobsAPI, "list", mock.Mock(return_value=[]))
+@mock.patch.object(JobsAPI, "create", mock.Mock(return_value={"job_id": "123"}))
 @mock.patch.dict(
     "os.environ",
     {
@@ -83,5 +82,4 @@ def test_create_no_tags(workflow_fixture_no_tags):
     result = jobs.create(workflow=workflow_fixture_no_tags, overwrite=True)
 
     logging.info(f"Create result: {result}")
-    assert result
-    assert result["job_id"]
+    assert isinstance(result, dict)

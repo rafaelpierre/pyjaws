@@ -5,7 +5,7 @@ cluster = Cluster(
     job_cluster_key="ai_cluster",
     spark_version=Runtime.DBR_13_ML,
     num_workers=2,
-    node_type_id="Standard_DS3_v2",
+    node_type_id="r3.xlarge",
     cluster_log_conf={"dbfs": {"destination": "dbfs:/home/cluster_log"}},
 )
 
@@ -27,7 +27,7 @@ transform_task = PythonWheelTask(
     package_name="deepspeed",
     entrypoint="deepspeed",
     task_name="ingest",
-    libraries=[{"pypi": "deepspeed"}],
+    libraries=[{"pypi": {"package": "deepspeed"}}],
     parameters=[
         "--num_nodes",
         "2",
