@@ -4,11 +4,8 @@ from databricks.sdk import (
 )
 
 from databricks.sdk.core import ApiClient
-
 from unittest import mock
-
 from databricks.sdk.service.jobs import JobTaskSettings, JobCluster
-
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -42,4 +39,4 @@ def test_jobs():
         tasks = [task1]
     )
 
-    #api.create.assert_called_once()
+    api.create.assert_called_once()

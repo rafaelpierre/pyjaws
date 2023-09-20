@@ -67,7 +67,7 @@ class Cluster(BaseModel):
 
 class BaseTask(BaseModel):
     """
-    Base class for Husk Databricks Workflow Task.
+    Base class for PyJaws Databricks Workflow Task.
     Params:
         key: Task key.
         existing_cluster_id: Cluster ID for running the task.
