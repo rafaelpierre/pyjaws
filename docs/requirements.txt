@@ -1,0 +1,6 @@
+sphinx
+sphinxcontrib-log-cabinet
+sphinx-issues
+sphinx-tabs
+Pallets-Sphinx-Themes
+myst_parser
