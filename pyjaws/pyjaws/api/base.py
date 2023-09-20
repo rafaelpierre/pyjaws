@@ -83,9 +83,9 @@ class BaseTask(BaseModel):
     """
     Base class for PyJaws Databricks Workflow Task.
     Params:
-        key: Task key.
-        cluster: Cluster object for running the task.
-        libraries: List of Python libraries to be installed.
+    key: Task key.
+    cluster: Cluster object for running the task.
+    libraries: List of Python libraries to be installed.
     """
 
     key: str
@@ -128,8 +128,8 @@ class Workflow(BaseModel):
     """
     Base class for PyJaws Databricks Workflow.
     Params:
-        name: Workflow name.
-        tasks: List of Workflow Tasks.
+    name: Workflow name.
+    tasks: List of Workflow Tasks.
     """
 
     class Config:
