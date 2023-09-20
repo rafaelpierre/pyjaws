@@ -1,8 +1,13 @@
 import logging
 import json
-import os
-from databricks_cli.jobs.api import JobsApi
-from databricks_cli.sdk import ApiClient
+from databricks.sdk.service.jobs import (
+    JobsAPI,
+    JobSettings,
+    JobCluster,
+    Task
+)
+from databricks.sdk.core import ApiClient
+import traceback
 
 from pyjaws.api.base import Workflow
 
@@ -15,29 +20,33 @@ def create(workflow: Workflow, overwrite: bool = False):
     logging.info(f"Creating workflow: {json_workflow}")
 
     try:
-        api_client = ApiClient(
-            host=os.environ["DATABRICKS_HOST"],
-            token=os.environ["DATABRICKS_TOKEN"],
-        )
-        logging.info(f"Deploying jobs to {os.environ['DATABRICKS_HOST']}")
+        api_client = ApiClient()
+        logging.info(f"Deploying jobs...")
         result = None
-        jobs_api = JobsApi(api_client)
-        existing_jobs = jobs_api._list_jobs_by_name(name=workflow.name)
+        jobs_api = JobsAPI(api_client)
+        existing_jobs = list(jobs_api.list(name=workflow.name))
+        dict_settings = workflow.json()
+        settings = JobSettings(**dict_settings)
+        logging.info(f"Found existing jobs: {existing_jobs}")
+        dict_settings["job_clusters"] = [JobCluster.from_dict(cluster) for cluster in dict_settings["job_clusters"]]
+        dict_settings["tasks"] = [Task.from_dict(task) for task in dict_settings["tasks"]]
 
-        if overwrite and existing_jobs:
-            for job in existing_jobs:
-                json_ = {
-                    "job_id": job["job_id"],
-                    "new_settings": workflow.json(),
-                }
-                logging.info(f"Reseting job: {job}")
-                result = jobs_api.reset_job(json=json_, version=API_VERSION)
+        if overwrite and len(existing_jobs) > 0:
+            for job in existing_jobs: 
+                logging.info(f"Resetting job: {job}")
+                jobs_api.reset(
+                    job_id = job.job_id,
+                    new_settings = JobSettings(**dict_settings)
+                )
         else:
-            result = jobs_api.create_job(json=workflow.json(), version=API_VERSION)
+            logging.info("Creating job")
+            logging.info(f"Settings: {dict_settings}")
+            
+            jobs_api.create(**dict_settings)
 
-        logging.info(f"Result: {str(result)}")
-        return result
+        return dict_settings
 
     except Exception as exception:
         logging.error("Error creating Databricks Jobs Workflow:")
         logging.error(str(exception))
+        traceback.print_exc()

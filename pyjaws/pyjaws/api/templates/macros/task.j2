@@ -18,14 +18,13 @@
     {% endif %},
     {% if workflow_task.libraries %}
     "libraries": [
+        {"pypi": {"package": "pyjaws"}},
         {% for library in workflow_task.libraries %}
             {% for source, target in library.items() %}
-            {% if source == "pypi" %}
-            {"pypi": {
+            {"{{source}}": {
                 "package": "{{ target['package'] }}"
                 }
             },
-            {% endif %}
             {% endfor %}
         {% endfor %}
     ],

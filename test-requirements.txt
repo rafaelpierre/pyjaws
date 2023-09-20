@@ -4,3 +4,5 @@ pytest
 coverage[toml]
 pytest-cov
 defusedxml
+python-dotenv
+databricks-sdk

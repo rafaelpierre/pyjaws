@@ -9,10 +9,10 @@ PACKAGE_REQUIREMENTS = [
     "Jinja2==3.1.2",
     "networkx",
     "GitPython==3.1.35",
-    "databricks-cli==0.17.5",
     "requests<2.30.0",
     "urllib3<2",
-    "matplotlib"
+    "matplotlib",
+    "databricks-sdk==0.8.0"
 ]
 
 current_dir = Path(__file__).parent.parent
@@ -29,5 +29,5 @@ setup(
     version=pyjaws.__version__,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author="Rafael Pierre",
+    authors=["Rafael Pierre",
 )
