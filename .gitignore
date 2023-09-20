@@ -7,6 +7,8 @@
 .terraform
 *.egg-info
 
+__pycache__
+
 .venv
 */build
 */dist

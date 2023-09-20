@@ -1,28 +1,26 @@
-"""Base class for Husk Databricks Jobs & Workflows."""
+"""Base class for PyJaws Databricks Jobs & Workflows."""
 
 from __future__ import annotations
-import jinja2
-import logging
-import json
-from json.decoder import JSONDecodeError
-import rapidjson
-from datetime import datetime
-from matplotlib import pyplot as plt
 
-from typing import List, Optional
-from pydantic import BaseModel
+import json
+import logging
 import os
-import networkx as nx
+from datetime import datetime
+from json.decoder import JSONDecodeError
+from threading import Lock
+from typing import List, Optional
 
 import git
+import jinja2
+import networkx as nx
+import rapidjson
+from matplotlib import pyplot as plt
+from pydantic import BaseModel
 
 from pyjaws import __version__
 from pyjaws.api.runtime import Runtime
 
-
 BASE_PATH = os.path.dirname(__file__)
-WHEEL_NAME = f"husk-{__version__}-py3-none-any.whl"
-WHEEL_REMOTE_PATH = f"dbfs:/FileStore/husk/{WHEEL_NAME}/{WHEEL_NAME}"
 
 
 class Cluster(BaseModel):
@@ -34,6 +32,8 @@ class Cluster(BaseModel):
     instance_pool_id: Optional[str] = None
     runtime_engine: Optional[str] = None
     cluster_log_conf: Optional[dict] = None
+    __cluster: List[Cluster] = []  # mutable list to store current instance
+    __lock: Lock = Lock()  # to prevent race conditions
 
     def __init__(self, **kwargs):
         """
@@ -55,10 +55,24 @@ class Cluster(BaseModel):
         return self.job_cluster_key
 
     def __enter__(self) -> Cluster:
+        """Injects cluster instance into tasks created within context manger syntax."""
+        if self.__cluster:
+            raise Exception("Nested clusters are not supported!!")
+        self.__lock.acquire()
+        self.__cluster.append(self)
         return self
 
     def __exit__(self, *args):
-        pass
+        self.__cluster.pop()
+        self.__lock.release()
+
+    @classmethod
+    def _get_cluster(cls) -> Cluster:
+        """A helper method to return the cluster instance."""
+        if cls.__cluster:
+            return cls.__cluster[-1]
+        else:
+            raise Exception("_get_cluster cannot be called outside of with clause!!")
 
     @property
     def cluster_log_conf_str(self) -> str:
@@ -70,20 +84,38 @@ class BaseTask(BaseModel):
     Base class for PyJaws Databricks Workflow Task.
     Params:
         key: Task key.
-        existing_cluster_id: Cluster ID for running the task.
+        cluster: Cluster object for running the task.
         libraries: List of Python libraries to be installed.
     """
 
     key: str
-    cluster: Cluster
-    dependencies: Optional[List[BaseTask]] = None
+    cluster: Optional[Cluster] = None
+    dependencies: Optional[List[BaseTask]] = []
     libraries: Optional[List[dict]] = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        if not self.cluster and Cluster._get_cluster():
+            self.cluster = Cluster._get_cluster()
 
     def __str__(self):
         return self.key
+
+    def set_relatives(self, downstream, task_or_task_list):
+        if isinstance(task_or_task_list, list):
+            for task in task_or_task_list:
+                self.set_relatives(downstream=downstream, task_or_task_list=task)
+        elif downstream:
+            self.dependencies.append(task_or_task_list)
+        else:
+            # Upstream
+            task_or_task_list.dependencies.append(self)
+
+    def __lshift__(self, task_or_task_list):
+        self.set_relatives(downstream=True, task_or_task_list=task_or_task_list)
+
+    def __rshift__(self, task_or_task_list):
+        self.set_relatives(downstream=False, task_or_task_list=task_or_task_list)
 
 
 class Workflow(BaseModel):
@@ -160,7 +192,7 @@ class Workflow(BaseModel):
         try:
             with open(f"{search_path}/{template_file}", "r"):
                 loader = jinja2.FileSystemLoader(searchpath=search_path)
-                env = jinja2.Environment(loader=loader)
+                env = jinja2.Environment(loader=loader, autoescape=True)
                 workflow_template = template_file
                 template = env.get_template(workflow_template)
                 result = template.render(workflow=self)

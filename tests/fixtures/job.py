@@ -149,6 +149,31 @@ def workflow_multiple_cluster() -> Workflow:
             python_file="/Workspace/Repos/bob@mail.com/utils/task_2.py",
             source=Source.WORKSPACE,
         )
-    workflow = Workflow(name="test_workflow_iot", tasks=[task_1, task_2])
+
+    # task created without explicit cluster reference within context manager
+    with Cluster(
+        job_cluster_key="mycluster_3",
+        spark_version=Runtime.DBR_13_ML,
+        node_type_id="Standard_E4ds_v4",
+        num_workers=3,
+    ):
+        task_3 = SparkPythonTask(
+            key="task_3",
+            python_file="/Workspace/Repos/bob@mail.com/utils/task_3.py",
+            source=Source.WORKSPACE,
+        )
+    workflow = Workflow(name="test_workflow_iot", tasks=[task_1, task_2, task_3])
 
     return workflow
+
+
+@pytest.fixture
+def cluster() -> Cluster:
+    cluster = Cluster(
+        job_cluster_key="mycluster_1",
+        spark_version=Runtime.DBR_13_ML,
+        node_type_id="Standard_E4ds_v4",
+        num_workers=3,
+    )
+
+    return cluster
