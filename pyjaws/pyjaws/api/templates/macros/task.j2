@@ -28,6 +28,10 @@
             {% endfor %}
         {% endfor %}
     ],
+    {% else %}
+    "libraries": [
+        {"pypi": {"package": "pyjaws"}}
+    ],
     {% endif %}
     {% if workflow_task._task_type == "python_wheel_task" %}
     "python_wheel_task": {
