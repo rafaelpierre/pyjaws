@@ -4,3 +4,4 @@ sphinx-issues
 sphinx-tabs
 pallets_sphinx_themes
 myst_parser
+pyjaws
