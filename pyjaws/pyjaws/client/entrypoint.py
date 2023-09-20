@@ -35,7 +35,7 @@ def app():
     default=False,
     help="Debug mode",
 )
-def create(input_folder: str, overwrite: bool = False, debug = False):
+def create(input_folder: str, overwrite: bool = False, debug=False):
     """
     Creates a Jobs Workflow for the Python job definitions stored in
     input_folder.
@@ -46,8 +46,8 @@ def create(input_folder: str, overwrite: bool = False, debug = False):
 
     try:
         if debug:
-            logging.basicConfig(level = "DEBUG")
-            
+            logging.basicConfig(level="DEBUG")
+
         logging.info("Starting workflow creation task")
 
         path = pathlib.Path(input_folder)

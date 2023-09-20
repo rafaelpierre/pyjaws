@@ -96,7 +96,7 @@ class BaseTask(BaseModel):
         {"pypi": {}},
         {"whl": ""},
         {"jar": ""},
-        {"maven": {}}
+        {"maven": {}},
     ]
 
     def __init__(self, **kwargs):
