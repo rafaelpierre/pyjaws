@@ -29,5 +29,5 @@ setup(
     version=pyjaws.__version__,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    authors=["Rafael Pierre",
+    authors=["Rafael Pierre"],
 )
