@@ -12,7 +12,7 @@ PACKAGE_REQUIREMENTS = [
     "requests<2.30.0",
     "urllib3<2",
     "matplotlib",
-    "databricks-sdk==0.8.0"
+    "databricks-sdk==0.8.0",
 ]
 
 current_dir = Path(__file__).parent.parent
