@@ -42,9 +42,8 @@ def create(workflow: Workflow, overwrite: bool = False):
             logging.info("Creating job")
             logging.info(f"Settings: {dict_settings}")
             
-            result = jobs_api.create(**dict_settings)
+            jobs_api.create(**dict_settings)
 
-        logging.info(f"Result: {str(result)}")
         return dict_settings
 
     except Exception as exception:

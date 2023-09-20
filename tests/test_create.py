@@ -11,11 +11,8 @@ from tests.fixtures.job import (
     workflow_multiple_cluster,
 )
 
-
-@mock.patch.object(
-    JobsAPI, "list", mock.Mock(return_value=[{"job_id": "1234"}])
-)
-@mock.patch.object(JobsAPI, "reset", mock.Mock(return_value={}))
+@mock.patch.object(JobsAPI, "list", mock.Mock(return_value=[]))
+@mock.patch.object(JobsAPI, "create", mock.Mock(return_value={"job_id": "123"}))
 @mock.patch.dict(
     "os.environ",
     {
