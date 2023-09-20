@@ -2,5 +2,5 @@ sphinx
 sphinxcontrib-log-cabinet
 sphinx-issues
 sphinx-tabs
-Pallets-Sphinx-Themes
+pallets_sphinx_themes
 myst_parser
