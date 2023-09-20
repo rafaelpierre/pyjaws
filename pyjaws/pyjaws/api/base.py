@@ -91,13 +91,7 @@ class BaseTask(BaseModel):
     key: str
     cluster: Optional[Cluster] = None
     dependencies: Optional[List[BaseTask]] = []
-    libraries: Optional[List[dict]] = [
-        {"egg": ""},
-        {"pypi": {}},
-        {"whl": ""},
-        {"jar": ""},
-        {"maven": {}},
-    ]
+    libraries: Optional[List[dict]] = []
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -230,7 +224,7 @@ class Workflow(BaseModel):
 
         if len(self.tasks) == 1:
             self.graph = nx.Graph()
-            self.graph.add_node(self.tasks[0].task_name)
+            self.graph.add_node(self.tasks[0].key)
         else:
             for task in self.tasks:
                 for dependency in task.dependencies or []:
