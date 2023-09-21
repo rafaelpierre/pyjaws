@@ -8,6 +8,9 @@ import click
 import os
 import sys
 from pyjaws.api import jobs
+from pyjaws.api.tasks import SparkPythonTask
+from databricks.sdk import WorkspaceClient
+import uuid
 
 
 logging.basicConfig(level="DEBUG")
@@ -70,6 +73,22 @@ def create(input_folder: str, overwrite: bool = False, debug=False):
 
             workflow = module.workflow
             logging.info(f"Imported workflow: {workflow.json()}")
+
+            for task in workflow.tasks:
+                if (
+                    isinstance(task, SparkPythonTask)
+                    and task.local_module is not None
+                ):
+                    # Upload Python Modules into DBFS
+                    module_path = task.local_module
+                    logging.info(f"Entrypoint - module_path: {module_path}")
+                    dbfs_path = task.python_file
+                    w = WorkspaceClient()
+                    w.dbutils.fs.rm(dbfs_path)
+                    w.dbutils.fs.cp(
+                        from_ = f"file://{task.local_module}",
+                        to = dbfs_path
+                    )
 
             logging.info(f"Deploying job workflow for {script_path}...")
             jobs.create(workflow, overwrite)

@@ -1,9 +1,14 @@
 """Models for various Databricks task types."""
 
 from enum import Enum
-from typing import Dict, List, Optional
-
+from typing import Dict, List, Optional, Any
+from pydantic import field_validator
+from pydantic_core.core_schema import FieldValidationInfo
 from pyjaws.api.base import BaseTask
+from typing import ClassVar
+import logging
+import uuid
+import os
 
 
 class Source(Enum):
@@ -73,7 +78,34 @@ class SparkPythonTask(BaseTask):
         parameters (Optional[List[str]]): Command-line parameters, defaults to []\n
     """
 
-    python_file: str
+    python_file: Optional[str] = ""
+    local_module: Optional[Any] = None
     source: Source
     parameters: Optional[List[str]] = []
     _task_type: str = "spark_python_task"
+
+    @field_validator("local_module")
+    def verify_python_local_module(cls, v, info: FieldValidationInfo):
+        logging.info(info.data.keys())
+        python_file = info.data["python_file"]
+        local_module = v
+        logging.info(f"Python file: {python_file}")
+        logging.info(f"Local module: {local_module}")
+
+        if (
+            ((python_file == "") and (not local_module))
+            or ((python_file != "") and (local_module))
+        ):
+            raise ValueError(
+                "Either python_file or local_module must be valid (not both)"
+            )
+        if local_module is not None:
+            module_path = os.path.abspath(local_module.__file__)
+            module_file_name = os.path.basename(module_path)
+            logging.info(f"Local module path: {module_path}")
+            logging.info(f"Module file name: {file_name}")
+            dbfs_path = f"dbfs:/pyjaws/{uuid.uuid4()}/{module_file_name}"
+            info.data["python_file"] = dbfs_path
+            return module_path
+    
+#SparkPythonTask.model_rebuild()

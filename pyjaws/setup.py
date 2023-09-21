@@ -5,7 +5,7 @@ from pathlib import Path
 PACKAGE_REQUIREMENTS = [
     "click",
     "python-rapidjson==1.10",
-    "pydantic==1.10.5",
+    "pydantic==2.3.0",
     "Jinja2==3.1.2",
     "networkx",
     "GitPython==3.1.35",

@@ -1,6 +1,8 @@
 """Base class for PyJaws Databricks Jobs & Workflows."""
 
 from __future__ import annotations
+import copy
+from typing import Any
 
 import json
 import logging
@@ -8,14 +10,14 @@ import os
 from datetime import datetime
 from json.decoder import JSONDecodeError
 from threading import Lock
-from typing import List, Optional
+from typing import Any, List, Optional
 
 import git
 import jinja2
 import networkx as nx
 import rapidjson
 from matplotlib import pyplot as plt
-from pydantic import BaseModel
+from pydantic import BaseModel, PrivateAttr
 
 from pyjaws import __version__
 from pyjaws.api.runtime import Runtime
@@ -32,12 +34,16 @@ class Cluster(BaseModel):
     instance_pool_id: Optional[str] = None
     runtime_engine: Optional[str] = None
     cluster_log_conf: Optional[dict] = None
-    __cluster: List[Cluster] = []  # mutable list to store current instance
-    __lock: Lock = Lock()  # to prevent race conditions
+    #__cluster: List[Cluster] = []  # mutable list to store current instance
+    #__lock: Lock = Lock()  # to prevent race conditions
+    __cluster: List[Cluster] = PrivateAttr(
+        default = [])
+    __lock: List[Cluster] = PrivateAttr(
+        default_factory = Lock.__call__
+    )
 
     def __init__(self, **kwargs):
-        """
-        Creates a cluster object.
+        """Creates a cluster object.
         Params:
             job_cluster_key (str): Job Cluster identifying key.\n
             spark_version (pyjaws.api.base.Cluster): Spark Cluster Runtime.\n
@@ -49,6 +55,7 @@ class Cluster(BaseModel):
             cluster_lob_conf (dict): Dict containing configurations for
             storing cluster logs.\n
         """
+
         super().__init__(**kwargs)
 
     def __str__(self):
@@ -57,7 +64,7 @@ class Cluster(BaseModel):
     def __enter__(self) -> Cluster:
         """Injects cluster instance into tasks created within context manger syntax."""
         if self.__cluster:
-            raise Exception("Nested clusters are not supported!!")
+            raise Exception("Nested clusters are not supported!")
         self.__lock.acquire()
         self.__cluster.append(self)
         return self
@@ -65,6 +72,7 @@ class Cluster(BaseModel):
     def __exit__(self, *args):
         self.__cluster.pop()
         self.__lock.release()
+
 
     @classmethod
     def _get_cluster(cls) -> Cluster:
@@ -77,6 +85,10 @@ class Cluster(BaseModel):
     @property
     def cluster_log_conf_str(self) -> str:
         return json.dumps(self.cluster_log_conf)
+    
+    def __deepcopy__(self, memdict={}) -> Cluster:
+        copy_obj = type(self)()
+        return copy_obj
 
 
 class BaseTask(BaseModel):
@@ -117,7 +129,6 @@ class BaseTask(BaseModel):
     def __rshift__(self, task_or_task_list):
         self.set_relatives(downstream=False, task_or_task_list=task_or_task_list)
 
-
 class Workflow(BaseModel):
     """
     Base class for PyJaws Databricks Workflow.
@@ -126,14 +137,14 @@ class Workflow(BaseModel):
     tasks: List of Workflow Tasks.
     """
 
-    class Config:
-        arbitrary_types_allowed = True
-
     name: str
     tasks: List[BaseTask]
     tags: Optional[dict] = {}
-    graph: nx.Graph = None
-    schedule: Optional[str]
+    graph: Optional[Any] = None
+    schedule: Optional[str] = ""
+
+    class Config:
+        arbitrary_types_allowed = True
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
