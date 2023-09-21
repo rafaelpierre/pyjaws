@@ -22,7 +22,8 @@ extensions = [
     "sphinx_issues",
     "sphinx_tabs.tabs",
     "sphinx.ext.napoleon",
-    "myst_parser"
+    "myst_parser",
+    'sphinx.ext.autosectionlabel'
 ]
 autodoc_typehints = "description"
 intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
@@ -40,7 +41,7 @@ html_static_path = ["_static"]
 html_favicon = "_static/click-icon.png"
 html_logo = "_static/click-logo-sidebar.png"
 html_title = f"PyJaws Documentation ({version})"
-html_show_sourcelink = False
+html_show_sourcelink = True
 
 # Napoleon settings
 napoleon_google_docstring = True
