@@ -18,9 +18,9 @@ w.dbutils.fs.cp(
 
 cluster = Cluster(
     job_cluster_key="ai_cluster",
-    spark_version=Runtime.DBR_13_ML,
+    spark_version=Runtime.DBR_13_ML_GPU,
     num_workers=2,
-    node_type_id="r3.xlarge",
+    node_type_id="g5.2xlarge",
     cluster_log_conf={"dbfs": {"destination": "dbfs:/home/cluster_log"}},
 )
 
@@ -30,7 +30,12 @@ train_task = SparkPythonTask(
     key="train",
     cluster=cluster,
     python_file=python_script_path,
-    source = Source.WORKSPACE
+    source = Source.WORKSPACE,
+    libraries = [
+        {"pypi": {
+            "package": "torch==2.0.1"
+        }}
+    ]
 )
 
 # Create a Workflow object to define dependencies

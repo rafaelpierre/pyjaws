@@ -3,6 +3,7 @@ from datasets import load_dataset
 import numpy as np
 import mlflow
 import evaluate
+import torch
 
 tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
 
@@ -36,7 +37,8 @@ def train():
 
     model = AutoModel.from_pretrained(
         "distilbert-base-uncased",
-        num_labels = 5
+        num_labels = 5,
+        device = "cuda" if torch.cuda.is_available() else "cpu"
     )
 
     trainer = Trainer(
