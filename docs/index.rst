@@ -6,6 +6,11 @@
 
 Folks who have used Python-based orchestration tools such as **Apache Airflow**, **Luigi** and **Mage** will be familiar with the concepts and the API if **PyJaws**.
 
+.. image:: https://raw.githubusercontent.com/rafaelpierre/pyjaws/main/img/pyjaws.png
+  :width: 600
+  :alt: PyJaws Mascot - A Shark on Steroids!
+  :align: center
+
 Project Homepage
 ----------------
 
