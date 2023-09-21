@@ -1,0 +1,7 @@
+User-agent: *
+
+Disallow: /
+
+Allow: /en/stable
+
+Sitemap: https://pyjaws.readthedocs.io/en/latest/sitemap-index.xml
