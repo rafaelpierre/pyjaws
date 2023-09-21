@@ -42,7 +42,7 @@ html_favicon = "_static/click-icon.png"
 html_logo = "_static/click-logo-sidebar.png"
 html_title = f"PyJaws Documentation ({version})"
 html_show_sourcelink = True
-html_extra_path = ["_html"]
+html_extra_path = ["_html/robots.txt", "_html/googled37ca91719e87a84.html"]
 
 # Napoleon settings
 napoleon_google_docstring = True
