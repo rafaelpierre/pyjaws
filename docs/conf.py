@@ -30,7 +30,7 @@ intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 
 # HTML -----------------------------------------------------------------
 
-html_theme = "click"
+html_theme = "sphinx_rtd_theme"
 html_theme_options = {"index_sidebar_logo": False}
 html_sidebars = {
     "index": ["project.html", "localtoc.html", "searchbox.html", "ethicalads.html"],

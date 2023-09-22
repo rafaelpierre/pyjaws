@@ -2,6 +2,7 @@ sphinx
 sphinxcontrib-log-cabinet
 sphinx-issues
 sphinx-tabs
+sphinx-rtd-theme
 pallets_sphinx_themes
 myst_parser
 pyjaws
