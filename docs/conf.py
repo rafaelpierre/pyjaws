@@ -31,6 +31,7 @@ intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 # HTML -----------------------------------------------------------------
 
 html_theme = "sphinx_rtd_theme"
+html_theme_path = ["_themes", ]
 html_theme_options = {"index_sidebar_logo": False}
 html_sidebars = {
     "index": ["project.html", "localtoc.html", "searchbox.html", "ethicalads.html"],
@@ -58,3 +59,6 @@ napoleon_use_param = True
 napoleon_use_rtype = True
 
 add_module_names = True
+myst_html_meta = {
+    "description lang-en": "test123"
+}

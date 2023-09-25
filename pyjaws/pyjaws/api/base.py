@@ -39,15 +39,15 @@ class Cluster(BaseModel):
         """
         Creates a cluster object.
         Params:
-            job_cluster_key (str): Job Cluster identifying key.\n
-            spark_version (pyjaws.api.base.Cluster): Spark Cluster Runtime.\n
-            num_workers (int): Number of workers in the cluster.\n
-            node_type_id (int): Type of VM to use for Driver and Workers.\n
-            autoscale (bool): Enable autoscaling.\n
-            instance_pool_id (str): Specify an Instance Pool for the job cluster.\n
-            runtime_engine: (str): STANDARD or PHOTON.\n
-            cluster_lob_conf (dict): Dict containing configurations for
-            storing cluster logs.\n
+        job_cluster_key (str): Job Cluster identifying key.\n
+        spark_version (pyjaws.api.base.Cluster): Spark Cluster Runtime.\n
+        num_workers (int): Number of workers in the cluster.\n
+        node_type_id (int): Type of VM to use for Driver and Workers.\n
+        autoscale (bool): Enable autoscaling.\n
+        instance_pool_id (str): Specify an Instance Pool for the job cluster.\n
+        runtime_engine: (str): STANDARD or PHOTON.\n
+        cluster_lob_conf (dict): Dict containing configurations for
+        storing cluster logs.\n
         """
         super().__init__(**kwargs)
 
@@ -91,13 +91,7 @@ class BaseTask(BaseModel):
     key: str
     cluster: Optional[Cluster] = None
     dependencies: Optional[List[BaseTask]] = []
-    libraries: Optional[List[dict]] = [
-        {"egg": ""},
-        {"pypi": {}},
-        {"whl": ""},
-        {"jar": ""},
-        {"maven": {}},
-    ]
+    libraries: Optional[List[dict]] = []
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

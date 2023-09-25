@@ -1,6 +1,3 @@
-.. meta::
-      :google-site-verification: "3wBiq9Skr01hUP4Vfwl_Rpo7RSnRiyiXmYihUWgPgug"
-
 🦈 pyjaws
 ==================
 
