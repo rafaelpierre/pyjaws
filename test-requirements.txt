@@ -6,3 +6,4 @@ pytest-cov
 defusedxml
 python-dotenv
 databricks-sdk
+urllib3>=2.6.0 # not directly required, pinned by Snyk to avoid a vulnerability
